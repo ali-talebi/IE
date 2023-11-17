@@ -1,0 +1,198 @@
+{% load static %}
+<!DOCTYPE html>
+
+<!--
+ // WEBSITE: https://themefisher.com
+ // TWITTER: https://twitter.com/themefisher
+ // FACEBOOK: https://www.facebook.com/themefisher
+ // GITHUB: https://github.com/themefisher/
+-->
+
+<html lang="en-us"><head>
+  <meta charset="utf-8">
+  <title>مهندسی صنایع | IE </title>
+  <!-- mobile responsive meta -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="This is meta description">
+  <meta name="author" content="Themefisher">
+  <meta name="generator" content="Hugo 0.74.3" />
+
+  <!-- plugins -->
+  
+  <link rel="stylesheet" href="{% static 'plugins/bootstrap/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'plugins/themify-icons/themify-icons.css' %}">
+  <link rel="stylesheet" href="{% static 'plugins/slick/slick.css' %}">
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="{% static 'css/style.css' %}" media="screen">
+
+  <!--Favicon-->
+  <link rel="shortcut icon" href="{% static 'images/favicon.png' %}" type="image/x-icon">
+  <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/x-icon">
+
+  <meta property="og:title" content="Reader | Hugo Personal Blog Template" />
+  <meta property="og:description" content="This is meta description" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="" />
+  <meta property="og:updated_time" content="2020-03-15T15:40:24+06:00" />
+</head>
+<body>
+  <!-- navigation -->
+  {% block navigation %}
+  {% include 'navigation.html' %}
+  {%  endblock navigation %}
+<!-- /navigation -->
+
+<div class="py-4"></div>
+<section class="section">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class=" col-lg-9   mb-5 mb-lg-0">
+        <article>
+          <div class="post-slider mb-4">
+            <img src="{{read_post.picture.url}}" class="card-img" alt="post-thumb">
+          </div>
+          
+          <h1 class="h2">{{read_post.title}} </h1>
+          <ul class="card-meta my-3 list-inline">
+            <li class="list-inline-item">
+              <a href="{% url 'CLIENT:Show_USER' read_post.author.id  %}" class="card-meta-author">
+                <img src="{{read_post.author.picture.url}}">
+                <span>{{read_post.author}}</span>
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <i class="ti-timer"></i>{{read_post.time_to_read}} دقیقه
+            </li>
+            <li class="list-inline-item">
+              <i class="ti-calendar"></i>{{read_post.created|date:'Y m d D'}}
+            </li>
+            <li class="list-inline-item">
+              <ul class="card-meta-tag list-inline">
+                {% for i in read_post.tags.all  %}
+                <li class="list-inline-item"><a href="{% url 'BLOG:SELECT_TAGS' i.slug %}">{{i.name}}</a></li>
+                {% endfor %}
+              </ul>
+            </li>
+          </ul>
+          <div class="content"><p>
+            {{read_post.text|safe}}
+          </p>
+          </div>
+        </article>
+        
+      </div>
+
+      <div class="col-lg-9 col-md-12">
+          <div class="mb-5 border-top mt-4 pt-5">
+              <h3 class="mb-4">کامنت ها</h3>
+              {% for i in comments %}
+              <div class="media d-block d-sm-flex mb-4 pb-4">
+                  <a class="d-inline-block mr-2 mb-3 mb-md-0" href="#">
+                      <img width="50px" height="50px" src="{% static 'images/post/unkown_user.jpg' %}" class="mr-3 rounded-circle" alt="">
+                  </a>
+                  <div class="media-body">
+                      <a href="#!" class="h4 d-inline-block mb-3">{{i.name}}</a>
+
+                      <p>{{i.Comments}}</p>
+                      
+                      <span class="text-black-800 mr-3 font-weight-600">{{i.time}}</span>
+                      <a class="text-primary font-weight-600" href="#!"></a>
+                  </div>
+              </div>
+              {% endfor %}
+
+          </div>
+
+          <div>
+              <h3 class="mb-4">ارسال نظر</h3>
+              <form method="POST">
+                  {% csrf_token %}
+                  <div class="row">
+                      <div class="form-group col-md-12">
+                          <textarea class="form-control shadow-none" name="Comments" rows="7" required></textarea>
+                      </div>
+                      <div class="form-group col-md-4">
+                          <input class="form-control shadow-none" name = "name" type="text" placeholder="نام و نام خانوادگی" required>
+                      </div>
+                      <div class="form-group col-md-4">
+                          <input class="form-control shadow-none" name="email" type="email" placeholder="ایمیل" required>
+                      </div>
+                      <div class="form-group col-md-4">
+                          <input class="form-control shadow-none" name="website" type="text" placeholder="وبسایت">
+                          <p class="font-weight-bold valid-feedback">OK! You can skip this field.</p>
+                      </div>
+                  </div>
+                  <button class="btn btn-primary" type="submit">ارسال نظر</button>
+              </form>
+          </div>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <svg class="footer-border" height="214" viewBox="0 0 2204 214" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M2203 213C2136.58 157.994 1942.77 -33.1996 1633.1 53.0486C1414.13 114.038 1200.92 188.208 967.765 118.127C820.12 73.7483 263.977 -143.754 0.999958 158.899"
+      stroke-width="2" />
+  </svg>
+  
+  <div class="instafeed text-center mb-5">
+    <h2 class="h3 mb-4">پست های اینستاگرامی </h2>
+    
+    <div class="instagram-slider">
+      {% for i in instagram_posts %}
+      <div class="instagram-post"><img src="{{i.picture.url}}"></div>
+      {% endfor %}
+    </div>
+</div>
+  
+  <div class="container">
+      <div class="row align-items-center">
+      <div class="col-md-5 text-center text-md-left mb-4">
+          <ul class="list-inline footer-list mb-0">
+            <!-- <li class="list-inline-item"><a href="privacy-policy.html">Privacy Policy</a></li>
+            <li class="list-inline-item"><a href="terms-conditions.html">Terms Conditions</a></li>
+            -->
+          </ul>
+      </div>
+      <div class="col-md-2 text-center mb-4">
+          <a href="index.html"><img class="img-fluid" width="250px" src="{% static 'images/logo1.png' %}" alt="Reader | Hugo Personal Blog Template"></a>
+      </div>
+      <div class="col-md-5 text-md-right text-center mb-4">
+          <ul class="list-inline footer-list mb-0">
+          
+          <li class="list-inline-item"><a href="#"><i class="ti-facebook"></i></a></li>
+          
+          <li class="list-inline-item"><a href="#"><i class="ti-twitter-alt"></i></a></li>
+          
+          <li class="list-inline-item"><a href="#"><i class="ti-linkedin"></i></a></li>
+          
+          <li class="list-inline-item"><a href="#"><i class="ti-github"></i></a></li>
+          
+          <li class="list-inline-item"><a href="#"><i class="ti-youtube"></i></a></li>
+          
+          </ul>
+      </div>
+      <div class="col-12">
+          <div class="border-bottom border-default"></div>
+      </div>
+      </div>
+  </div>
+  </footer>
+
+
+  <!-- JS Plugins -->
+  <script src="{% static 'plugins/jQuery/jquery.min.js' %}"></script>
+
+  <script src="{% static 'plugins/bootstrap/bootstrap.min.js' %}"></script>
+
+  <script src="{% static 'plugins/slick/slick.min.js' %}"></script>
+
+  <script src="{% static 'plugins/instafeed/instafeed.min.js' %}"></script>
+
+
+  <!-- Main Script -->
+  <script src="{% static 'js/script.js' %}"></script></body>
+</html>
